@@ -128,8 +128,8 @@ namespace XNodeEditor {
             } else SaveAs();
         }
 
-        public bool SaveAs() {
-            string path = EditorUtility.SaveFilePanelInProject("Save NodeGraph", "NewNodeGraph", "asset", "");
+        public bool SaveAs(string folder = null) {
+            string path = folder ?? EditorUtility.SaveFilePanelInProject("Save NodeGraph", "NewNodeGraph", "asset", "");
             if (string.IsNullOrEmpty(path)) return false;
             else {
                 XNode.NodeGraph existingGraph = AssetDatabase.LoadAssetAtPath<XNode.NodeGraph>(path);
