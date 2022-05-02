@@ -128,15 +128,16 @@ namespace XNodeEditor {
             } else SaveAs();
         }
 
-        public void SaveAs() {
+        public bool SaveAs() {
             string path = EditorUtility.SaveFilePanelInProject("Save NodeGraph", "NewNodeGraph", "asset", "");
-            if (string.IsNullOrEmpty(path)) return;
+            if (string.IsNullOrEmpty(path)) return false;
             else {
                 XNode.NodeGraph existingGraph = AssetDatabase.LoadAssetAtPath<XNode.NodeGraph>(path);
                 if (existingGraph != null) AssetDatabase.DeleteAsset(path);
                 AssetDatabase.CreateAsset(graph, path);
                 EditorUtility.SetDirty(graph);
                 if (NodeEditorPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                return true;
             }
         }
 
